@@ -5,7 +5,6 @@
 typedef enum _MORSE_SYMBOL {
 	ti,
 	ta,
-	null //ugly hack to be able to set a fixed size to the array code
 } MORSE_SYMBOL;
 
 typedef struct _MORSE_CODE {
@@ -24,8 +23,38 @@ typedef struct _MORSE_LIST {
 } MORSE_LIST;
 
 typedef struct _ALPHABET_MORSE {
-	MORSE_LETTER * first;	
+	MORSE_LETTER * first;
 }ALPHABET_MORSE;
+
+MORSE_SYMBOL to_morse_symbol(char c){
+	switch(c) {
+		case '.' :
+			return ti;
+			break;
+		case '-' :
+			return ta;
+			break;
+	}
+}
+
+void add_symbol(MORSE_CODE * code, MORSE_SYMBOL symbol) {
+	MORSE_CODE * aux;
+	MORSE_CODE * new;
+	if (code == NULL) {
+		code=malloc(sizeof(MORSE_CODE));
+		code->symbol = symbol;
+		code->next = null;
+	} else {
+		aux = code;
+		while (aux->next != null) {
+			aux=aux->next;
+		}
+		new = malloc(sizeof(MORSE_CODE));
+		aux->next=new;
+		new->symbol = symbol;
+		new->next = null;
+	}
+}
 
 /*MORSE_CODE get_morse_lettre(char letter) {
 	int i = 0;
