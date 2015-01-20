@@ -1,5 +1,7 @@
 /* morse_alphabet.c */
 
+#include <stdio.h>
+#include <stdlib.h>
 #include "morse_alphabet.h"
 
 typedef enum _MORSE_SYMBOL {
@@ -26,6 +28,39 @@ typedef struct _MORSE_LIST {
 typedef struct _ALPHABET_MORSE {
 	MORSE_LETTER * first;	
 }ALPHABET_MORSE;
+
+
+ALPHABET_MORSE create_alphabet ()
+{
+    ALPHABET_MORSE * mon_alphabet ;
+    MORSE_LETTER * lettre_morse ;
+    lettre_morse=malloc(sizeof(MORSE_LETTER));
+    char caractereActuel = 'a';
+    mon_alphabet=malloc(sizeof(ALPHABET_MORSE));
+    MORSE_CODE *code ;
+    code=malloc(sizeof(MORSE_CODE));
+    
+    FILE* fichier=NULL;
+    fichier=fopen("morse.txt","r");
+    
+    if (fichier != NULL)
+    {
+        
+        while (caractereActuel != EOF)
+        {
+            lettre_morse->letter=(char)(fgetc(fichier));
+                while ((caractereActuel) != '\n')
+                {
+                    caractereActuel=(char)fgetc(fichier);
+                    add_symbol(code,to_morse_symbol(caractereActuel));
+                }
+             lettre_morse->code=code;
+            add_letter(mon_alphabet,lettre_morse);
+        }
+    }
+    
+    return *mon_alphabet;
+}
 
 /*MORSE_CODE get_morse_lettre(char letter) {
 	int i = 0;
