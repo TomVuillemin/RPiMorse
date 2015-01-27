@@ -1,8 +1,7 @@
 /* morse_alphabet.c */
 
-#include <stdio.h>
-#include <stdlib.h>
 #include "morse_alphabet.h"
+
 
 typedef enum _MORSE_SYMBOL {
 	ti,
@@ -36,6 +35,9 @@ MORSE_SYMBOL to_morse_symbol(char c){
 		case '-' :
 			return ta;
 			break;
+        default:
+            return NULL;
+            break;
 	}
 }
 
@@ -45,17 +47,18 @@ void add_symbol(MORSE_CODE * code, MORSE_SYMBOL symbol) {
 	if (code == NULL) {
 		code=malloc(sizeof(MORSE_CODE));
 		code->symbol = symbol;
-		code->next = null;
+		code->next = NULL;
 	} else {
 		aux = code;
-		while (aux->next != null) {
+		while (aux->next != NULL) {
 			aux=aux->next;
 		}
 		new = malloc(sizeof(MORSE_CODE));
 		aux->next=new;
 		new->symbol = symbol;
-		new->next = null;
+		new->next = NULL;
 	}
+}
 
 ALPHABET_MORSE create_alphabet ()
 {
