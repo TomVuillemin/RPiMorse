@@ -20,20 +20,16 @@ typedef struct _MORSE_LETTER {
 } MORSE_LETTER;
 
 typedef struct _MORSE_LIST {
-	MORSE_LETTER element;
+	MORSE_LETTER * element;
 	struct _MORSE_LIST * next;
 } MORSE_LIST;
-
-typedef struct _ALPHABET_MORSE {
-	MORSE_LETTER * first;
-}ALPHABET_MORSE;
 
 MORSE_SYMBOL to_morse_symbol(char c){
 	switch(c) {
 		case '.' :
 			return ti;
 			break;
-		case '-' :
+		default:
 			return ta;
 			break;
 	}
@@ -45,25 +41,45 @@ void add_symbol(MORSE_CODE * code, MORSE_SYMBOL symbol) {
 	if (code == NULL) {
 		code=malloc(sizeof(MORSE_CODE));
 		code->symbol = symbol;
-		code->next = null;
+		code->next = NULL;
 	} else {
 		aux = code;
-		while (aux->next != null) {
+		while (aux->next != NULL) {
 			aux=aux->next;
 		}
 		new = malloc(sizeof(MORSE_CODE));
 		aux->next=new;
 		new->symbol = symbol;
-		new->next = null;
+		new->next = NULL;
 	}
+}
 
-ALPHABET_MORSE create_alphabet ()
+void add_letter(MORSE_LIST * list, MORSE_LETTER * letter) {
+	MORSE_LIST * aux;
+	MORSE_LIST * new;
+	if (list == NULL) {
+		list=malloc(sizeof(MORSE_LIST));
+		list->element=letter;
+		list->next = NULL;
+	} else {
+		aux = list;
+		while (aux->next != NULL) {
+			aux=aux->next;
+		}
+		new = malloc(sizeof(MORSE_LIST));
+		aux->next=new;
+		new->element = letter;
+		new->next = NULL;
+	}
+}
+
+MORSE_LIST create_alphabet ()
 {
-    ALPHABET_MORSE * mon_alphabet ;
+    MORSE_LIST * mon_alphabet ;
     MORSE_LETTER * lettre_morse ;
     lettre_morse=malloc(sizeof(MORSE_LETTER));
     char caractereActuel = 'a';
-    mon_alphabet=malloc(sizeof(ALPHABET_MORSE));
+    mon_alphabet=malloc(sizeof(MORSE_LIST));
     MORSE_CODE *code ;
     code=malloc(sizeof(MORSE_CODE));
 
