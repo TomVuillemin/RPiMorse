@@ -19,20 +19,16 @@ typedef struct _MORSE_LETTER {
 } MORSE_LETTER;
 
 typedef struct _MORSE_LIST {
-	MORSE_LETTER element;
+	MORSE_LETTER * element;
 	struct _MORSE_LIST * next;
 } MORSE_LIST;
-
-typedef struct _ALPHABET_MORSE {
-	MORSE_LETTER * first;
-}ALPHABET_MORSE;
 
 MORSE_SYMBOL to_morse_symbol(char c){
 	switch(c) {
 		case '.' :
 			return ti;
 			break;
-		case '-' :
+		default:
 			return ta;
 			break;
         default:
@@ -60,13 +56,13 @@ void add_symbol(MORSE_CODE * code, MORSE_SYMBOL symbol) {
 	}
 }
 
-ALPHABET_MORSE create_alphabet ()
+MORSE_LIST create_alphabet ()
 {
-    ALPHABET_MORSE * mon_alphabet ;
+    MORSE_LIST * mon_alphabet ;
     MORSE_LETTER * lettre_morse ;
     lettre_morse=malloc(sizeof(MORSE_LETTER));
     char caractereActuel = 'a';
-    mon_alphabet=malloc(sizeof(ALPHABET_MORSE));
+    mon_alphabet=malloc(sizeof(MORSE_LIST));
     MORSE_CODE *code ;
     code=malloc(sizeof(MORSE_CODE));
 
