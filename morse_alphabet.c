@@ -1,9 +1,6 @@
 /* morse_alphabet.c */
 
-#include <stdio.h>
-#include <stdlib.h>
 #include "morse_alphabet.h"
-
 
 
 MORSE_SYMBOL to_morse_symbol(char c){
