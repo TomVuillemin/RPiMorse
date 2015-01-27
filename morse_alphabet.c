@@ -4,25 +4,7 @@
 #include <stdlib.h>
 #include "morse_alphabet.h"
 
-typedef enum _MORSE_SYMBOL {
-	ti,
-	ta,
-} MORSE_SYMBOL;
 
-typedef struct _MORSE_CODE {
-	MORSE_SYMBOL symbol;
-	struct _MORSE_CODE* next;
-} MORSE_CODE;
-
-typedef struct _MORSE_LETTER {
-	char letter;
-	MORSE_CODE* code;
-} MORSE_LETTER;
-
-typedef struct _MORSE_LIST {
-	MORSE_LETTER * element;
-	struct _MORSE_LIST * next;
-} MORSE_LIST;
 
 MORSE_SYMBOL to_morse_symbol(char c){
 	switch(c) {
@@ -39,6 +21,7 @@ void add_symbol(MORSE_CODE * code, MORSE_SYMBOL symbol) {
 	MORSE_CODE * aux;
 	MORSE_CODE * new;
 	if (code == NULL) {
+        printf("after fgetc\n");
 		code=malloc(sizeof(MORSE_CODE));
 		code->symbol = symbol;
 		code->next = NULL;
@@ -58,6 +41,7 @@ void add_letter(MORSE_LIST * list, MORSE_LETTER * letter) {
 	MORSE_LIST * aux;
 	MORSE_LIST * new;
 	if (list == NULL) {
+
 		list=malloc(sizeof(MORSE_LIST));
 		list->element=letter;
 		list->next = NULL;
@@ -73,9 +57,8 @@ void add_letter(MORSE_LIST * list, MORSE_LETTER * letter) {
 	}
 }
 
-MORSE_LIST create_alphabet ()
+MORSE_LIST create_alphabet (MORSE_LIST * mon_alphabet)
 {
-    MORSE_LIST * mon_alphabet ;
     MORSE_LETTER * lettre_morse ;
     lettre_morse=malloc(sizeof(MORSE_LETTER));
     char caractereActuel = 'a';
@@ -85,21 +68,39 @@ MORSE_LIST create_alphabet ()
 
     FILE* fichier=NULL;
     fichier=fopen("morse.txt","r");
+    printf("fopen done\n");
+
 
     if (fichier != NULL)
     {
+        	printf("file not NULL\n");
 
         while (caractereActuel != EOF)
         {
+            	printf("caractere not Null\n");
+
             lettre_morse->letter=(char)(fgetc(fichier));
+                        	printf("after fgetc\n");
+
                 while ((caractereActuel) != '\n')
                 {
                     caractereActuel=(char)fgetc(fichier);
+                    printf("after second fgetc\n");
+                    printf("char actuel : %c\n",caractereActuel);
                     add_symbol(code,to_morse_symbol(caractereActuel));
+                	printf("after add sylbol\n");
+
                 }
+                	printf("caractere fin ligne\n");
+
              lettre_morse->code=code;
             add_letter(mon_alphabet,lettre_morse);
         }
+        	printf("caractere EOF\n");
+
+    }
+    else {
+        printf("file morse.txt not present\n");
     }
 
     return *mon_alphabet;
