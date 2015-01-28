@@ -83,11 +83,12 @@ MORSE_LIST* create_alphabet (MORSE_LIST * mon_alphabet)
         while (caractereActuel != EOF)
         {
             printf("caractere not Null\n");
+            lettre_morse=malloc(sizeof(MORSE_LETTER));
             lettre_morse->letter=caractereActuel;
             printf("after fgetc\n");
             caractereActuel=(char)fgetc(fichier);
             //TODO : Modify to be OK when EOF without \n
-            while ((caractereActuel) != '\n')
+            while ((caractereActuel) != '\n' && (caractereActuel)!= EOF)
             {
                 printf("after second fgetc\n");
                 //caractereActuel=(char)fgetc(fichier);
@@ -99,7 +100,9 @@ MORSE_LIST* create_alphabet (MORSE_LIST * mon_alphabet)
             printf("caractere fin ligne\n");
             
             lettre_morse->code=code;
+            code = NULL ;
             mon_alphabet=add_letter(mon_alphabet,lettre_morse);
+            
             caractereActuel=(char)fgetc(fichier);
             
         }
