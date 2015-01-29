@@ -55,3 +55,11 @@ void blink_sentence (char sentence[SIZE],MORSE_LIST * alphabet )
             sleep(SPACE-LETTER_INTERVAL);
     }
 }
+
+void send_text_morse (MORSE_LIST *alphabet)
+{
+    char sentence[SIZE];
+    printf("Entrez une phrase (sans accent ni majuscule)");
+    scanf("%s",sentence);
+    blink_sentence(sentence,alphabet);
+}

@@ -36,6 +36,7 @@ list_of_letter = add_letter(list_of_letter, letter);
     code=read_letter('b',alphabet);
 	wiringPiSetup();
 	//blink_letter('a',alphabet);
-    blink_sentence("coucou toi", alphabet);
+    //blink_sentence("coucou toi", alphabet);
+    send_text_morse(alphabet);
 	return 0;
 }

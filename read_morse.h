@@ -27,5 +27,6 @@
 MORSE_CODE * read_letter (char letter, MORSE_LIST * alphabet);
 void blink_letter (char letter, MORSE_LIST *alphabet);
 void blink_sentence (char sentence[SIZE],MORSE_LIST * alphabet );
+void send_text_morse (MORSE_LIST *alphabet);
 
 #endif /* defined(__Morse__read_morse__) */
