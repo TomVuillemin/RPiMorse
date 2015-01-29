@@ -42,3 +42,16 @@ void blink_letter (char letter, MORSE_LIST *alphabet) {
         sleep(LETTER_INTERVAL - SYMBOL_INTERVAL);
     }
 }
+
+void blink_sentence (char sentence[SIZE],MORSE_LIST * alphabet )
+{
+    int i ;
+    for (i=0; i < strlen(sentence); i++)
+    {
+        printf("Lettre actuelle %c \n",sentence[i]);
+        if (sentence[i] != ' ')
+            blink_letter(sentence[i], alphabet);
+        else
+            sleep(SPACE-LETTER_INTERVAL);
+    }
+}

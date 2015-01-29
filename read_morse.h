@@ -15,14 +15,17 @@
 #define LETTER_INTERVAL 3
 #define SPACE 6
 #define LED_PIN 7
+#define SIZE 1000
 
 #include <stdio.h>
 #include "morse_alphabet.h"
 #include "LED_control.h"
 #include <unistd.h>
+#include <string.h>
 
 
 MORSE_CODE * read_letter (char letter, MORSE_LIST * alphabet);
 void blink_letter (char letter, MORSE_LIST *alphabet);
+void blink_sentence (char sentence[SIZE],MORSE_LIST * alphabet );
 
 #endif /* defined(__Morse__read_morse__) */
