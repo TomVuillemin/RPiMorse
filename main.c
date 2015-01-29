@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include "morse_alphabet.h"
 #include "read_morse.h"
+#include "LED_control.h"
 
 int main(int argc, char **argv)
 {
@@ -30,10 +31,10 @@ list_of_letter = add_letter(list_of_letter, letter);
     printf("before alphabetd\n");
 	alphabet=create_alphabet(alphabet);
     printf("create alphabet done\n");
-    
+    printf("first letter alphabet : %c\n",alphabet->element->letter);
     // Test read_letter
-    code=read_letter('l',alphabet);
-    
-	printf("alphabet : %c\n",'c');
+    code=read_letter('b',alphabet);
+	wiringPiSetup();
+	blink_letter('a',alphabet);
 	return 0;
 }

@@ -67,6 +67,7 @@ MORSE_LIST* create_alphabet (MORSE_LIST * mon_alphabet)
     lettre_morse=malloc(sizeof(MORSE_LETTER));
     char caractereActuel = 'a';
     mon_alphabet=NULL;
+    int isEOF;
     MORSE_CODE *code ;
     code=NULL;
     
@@ -88,13 +89,11 @@ MORSE_LIST* create_alphabet (MORSE_LIST * mon_alphabet)
             printf("after fgetc\n");
             caractereActuel=(char)fgetc(fichier);
             //TODO : Modify to be OK when EOF without \n
-            while ((caractereActuel) != '\n' && (caractereActuel)!= EOF)
+            while ((caractereActuel) != '\n')
             {
-                printf("after second fgetc\n");
                 //caractereActuel=(char)fgetc(fichier);
                 printf("char actuel : %c\n",caractereActuel);
                 code=add_symbol(code,to_morse_symbol(caractereActuel));
-                printf("after add sylbol\n");
                 caractereActuel=(char)fgetc(fichier);
             }
             printf("caractere fin ligne\n");
@@ -102,9 +101,14 @@ MORSE_LIST* create_alphabet (MORSE_LIST * mon_alphabet)
             lettre_morse->code=code;
             code = NULL ;
             mon_alphabet=add_letter(mon_alphabet,lettre_morse);
-            
-            caractereActuel=(char)fgetc(fichier);
-            
+            isEOF=fgetc(fichier);
+		printf("isEOF  : %d\n",isEOF);
+	    if(isEOF==EOF) {
+                printf("EOF found\n\n\n\n\n");
+		printf("charInt is : %d\n",isEOF); 
+		break; 	    }
+            caractereActuel=(char)isEOF;
+           printf("actual char = %c\n",caractereActuel); 
         }
         printf("caractere EOF\n");
         
